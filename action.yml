@@ -1,0 +1,53 @@
+# Antora build – composite action for GitHub Actions Marketplace.
+# Use in your workflow after checkout. Outputs site path for deploy-pages.
+# Private content sources: pass antora-read-token (PAT) so Antora can clone other private repos.
+name: 'Antora Build'
+description: 'Build an Antora documentation site (Node, pnpm, antora). Use after checkout; optional PAT for private content sources.'
+branding:
+  icon: 'book'
+  color: 'blue'
+inputs:
+  playbook:
+    description: 'Path to antora-playbook.yml'
+    required: false
+    default: 'antora-playbook.yml'
+  node-version:
+    description: 'Node.js version'
+    required: false
+    default: '20'
+  pnpm-version:
+    description: 'pnpm version'
+    required: false
+    default: '9'
+  antora-read-token:
+    description: 'Optional PAT for cloning private content sources (content.sources). Leave empty if all sources are public or same repo.'
+    required: false
+outputs:
+  site-path:
+    description: 'Path to the built site (default build/site). Use with actions/upload-pages-artifact path.'
+    value: ${{ steps.build.outputs.site-path }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: ${{ inputs.pnpm-version }}
+
+    - name: Configure git for private content sources
+      if: inputs.antora-read-token != ''
+      shell: bash
+      run: |
+        git config --global url."https://${{ inputs.antora-read-token }}@github.com/".insteadOf "https://github.com/"
+
+    - name: Build Antora site
+      id: build
+      shell: bash
+      run: |
+        pnpm dlx antora "${{ inputs.playbook }}"
+        echo "site-path=build/site" >> "$GITHUB_OUTPUT"
