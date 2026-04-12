@@ -1,6 +1,6 @@
 site:
   title: Antora Build Action
-  url: https://antora-supplemental.github.io/antora-build-action-docs/
+  url: https://antora-supplemental.github.io/antora-build-action/
   start_page: manual::index.adoc
 
 content:

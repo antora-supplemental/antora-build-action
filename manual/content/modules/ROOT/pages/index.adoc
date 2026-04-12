@@ -7,7 +7,7 @@ Build https://antora.org[Antora] documentation sites in GitHub Actions with supp
 ====
 The https://github.com/marketplace[GitHub Marketplace] listing for this action is generated from `README.md` (Markdown only). This site is the **full** manual: inputs, credentials, examples, and troubleshooting.
 
-**Live URL:** https://antora-supplemental.github.io/antora-build-action-docs/
+**Live URL:** https://antora-supplemental.github.io/antora-build-action/
 ====
 
 [TIP]

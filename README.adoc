@@ -3,7 +3,7 @@
 
 The **full manual** (multi-page, Antora-generated) is published here:
 
-https://antora-supplemental.github.io/antora-build-action-docs/
+https://antora-supplemental.github.io/antora-build-action/
 
 AsciiDoc sources and the playbook live in the `manual/` directory of this repository.
 

@@ -4,7 +4,7 @@
 
 ## Documentation (full manual)
 
-**https://antora-supplemental.github.io/antora-build-action-docs/**
+**https://antora-supplemental.github.io/antora-build-action/**
 
 The manual covers prerequisites, every input/output, authentication for private `content.sources`, multi-repo examples, official vs peaceiris Pages patterns, security, and troubleshooting. Source lives under `manual/` in this repository.
 

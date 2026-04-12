@@ -18,22 +18,19 @@ Official reference: [Publishing actions in GitHub Marketplace](https://docs.gith
 
 ---
 
-## Manual site (sibling repository)
+## Manual site (GitHub Pages, in this repository)
 
-The HTML **Antora manual** is built from the `manual/` directory in **this** repo and is **published** by a **separate** repository for organizational simplicity (not because Marketplace forbids workflows here):
+The Antora **manual** lives under `manual/`. It is built and deployed by **`.github/workflows/publish-manual.yml`** (`upload-pages-artifact` + `deploy-pages`).
 
-* **Source (this repo):** `manual/` — playbook, AsciiDoc pages, nav.
-* **Publishing repo:** [antora-supplemental/antora-build-action-docs](https://github.com/antora-supplemental/antora-build-action-docs) — workflow checks out this repo, runs Antora on `manual/`, deploys to GitHub Pages.
+**Public URL (project site):** https://antora-supplemental.github.io/antora-build-action/
 
-**Public URL (project site):** https://antora-supplemental.github.io/antora-build-action-docs/
+Triggers: pushes to `main` that touch `manual/**` or the workflow file, **workflow_dispatch**, and a daily **schedule**.
 
-You could instead add an in-repo workflow to build `manual/` and deploy to Pages; the sibling repo is optional. After `manual/` changes on `main`, refresh the site from the docs repo (**Actions → Publish manual → Run workflow**) or wait for the scheduled run.
+### First-time setup (Pages)
 
-### First-time setup (docs repo)
-
-1. Ensure **antora-supplemental/antora-build-action-docs** exists and contains the workflow and `README.md`.
-2. In the docs repo: **Settings → Pages** → **Build and deployment** → Source: **GitHub Actions**.
-3. Run **Publish manual** once and confirm https://antora-supplemental.github.io/antora-build-action-docs/ loads.
+1. Repo **Settings → Pages** → **Build and deployment** → Source: **GitHub Actions** (not “Deploy from a branch”).
+2. Run **Actions → Publish manual → Run workflow** once, or push a change under `manual/`.
+3. Confirm the site loads at the URL above.
 
 ---
 
