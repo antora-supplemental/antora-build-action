@@ -3,6 +3,7 @@
   "private": true,
   "packageManager": "pnpm@10.33.0",
   "devDependencies": {
-    "antora": "^3.1.7"
+    "antora": "^3.1.7",
+    "antora-dark-theme": "^0.1.4"
   }
 }
