@@ -1,0 +1,109 @@
+= Authentication & credentials
+:navtitle: Authentication
+
+Antora fetches content from Git repositories at build time.
+When those repositories are private, you need to provide credentials.
+
+[[how-antora-uses-git-credentials]]
+== How Antora uses Git credentials
+
+Antora uses standard Git credential mechanisms:
+
+. **`GIT_CREDENTIALS` environment variable** — Antora reads this directly.
+. **`.git-credentials` file** — Standard Git credential storage.
+. **`git.credentials` in playbook** — Antora-specific configuration (not recommended for CI).
+
+This action configures both the environment variable and the `.git-credentials` file for maximum compatibility.
+
+== Credential format
+
+The `.git-credentials` format is one URL per line:
+
+[source]
+----
+https://<user>:<token>@<host>
+----
+
+=== GitHub personal access token (PAT)
+
+[source]
+----
+https://x-access-token:ghp_xxxxxxxxxxxx@github.com
+----
+
+Required scopes:
+
+* **Classic PAT**: `repo` (for private repos).
+* **Fine-grained PAT**: "Contents" read access on target repositories.
+
+=== GitLab personal access token
+
+[source]
+----
+https://oauth2:glpat-xxxxxxxxxxxx@gitlab.com
+----
+
+Self-hosted GitLab:
+
+[source]
+----
+https://oauth2:glpat-xxxxxxxxxxxx@gitlab.example.com
+----
+
+Required scopes: `read_repository`.
+
+=== Bitbucket app password
+
+[source]
+----
+https://x-token-auth:xxxxxxxxxxxx@bitbucket.org
+----
+
+Required permissions: `repository:read`.
+
+== Multiple hosts
+
+For multi-repository setups spanning different Git hosts, provide multiple credentials:
+
+[source,yaml]
+----
+- name: Build Antora Site
+  uses: antora-supplemental/antora-build-action@v1
+  with:
+    playbook: antora-playbook.yml
+    git_credentials: |
+      https://x-access-token:${{ secrets.GITHUB_PAT }}@github.com
+      https://oauth2:${{ secrets.GITLAB_PAT }}@gitlab.com
+      https://x-token-auth:${{ secrets.BITBUCKET_APP_PWD }}@bitbucket.org
+----
+
+== `GITHUB_TOKEN` vs personal access token
+
+The automatic `GITHUB_TOKEN` has limited scope:
+
+[cols="1,1,1"]
+|===
+| Scenario | `GITHUB_TOKEN` | PAT required
+
+| Same repo (public)
+| Yes
+| Not needed
+
+| Same repo (private)
+| Yes
+| Not needed
+
+| Same org (private)
+| No
+| Yes
+
+| Cross-org (private)
+| No
+| Yes
+
+| Other hosts (GitLab, etc.)
+| N/A
+| Yes
+|===
+
+**Recommendation:** Use a PAT with minimal required permissions for multi-repo documentation projects.

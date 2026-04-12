@@ -1,0 +1,44 @@
+= Quick start (GitHub Pages)
+:navtitle: Quick start
+
+This is the recommended pattern: `actions/upload-pages-artifact` and `actions/deploy-pages` (official). Set `output_dir` to match your playbook's `output.dir`.
+
+[source,yaml]
+----
+name: Documentation
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Antora
+        id: antora
+        uses: antora-supplemental/antora-build-action@v1
+        with:
+          playbook: antora-playbook.yml
+          output_dir: build/site
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ steps.antora.outputs.site-path }}
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - id: deploy
+        uses: actions/deploy-pages@v4
+----
+
+For more detail on permissions and alternatives, see xref:howto-pages-official.adoc[GitHub Pages (official actions)] and xref:howto-pages-peaceiris.adoc[GitHub Pages (peaceiris)].

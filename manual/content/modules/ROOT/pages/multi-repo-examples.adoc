@@ -1,0 +1,236 @@
+= Multi-repository examples
+:navtitle: Multi-repo examples
+
+Antora excels at aggregating documentation from multiple repositories.
+These patterns match common GitHub Actions setups.
+
+== Example 1: Single organization, multiple private repos
+
+Playbook (`antora-playbook.yml`):
+
+[source,yaml]
+----
+site:
+  title: ACME Documentation
+  url: https://docs.acme.com
+
+content:
+  sources:
+    - url: https://github.com/acme/product-a.git
+      branches: [main, 'v*']
+      start_path: docs
+    - url: https://github.com/acme/product-b.git
+      branches: [main]
+      start_path: docs
+    - url: https://github.com/acme/shared-components.git
+      branches: [main]
+      start_path: docs
+
+ui:
+  bundle:
+    url: https://github.com/acme/docs-ui/releases/latest/download/ui-bundle.zip
+----
+
+GitHub Actions workflow:
+
+[source,yaml]
+----
+name: Build Documentation
+
+on:
+  push:
+    branches: [main]
+  repository_dispatch:
+    types: [docs-update]  # Trigger from other repos
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Antora Site
+        uses: antora-supplemental/antora-build-action@v1
+        with:
+          playbook: antora-playbook.yml
+          # PAT with 'repo' scope that has access to all content repos
+          git_credentials: |
+            https://x-access-token:${{ secrets.DOCS_PAT }}@github.com
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+----
+
+== Example 2: Cross-platform (GitHub + GitLab)
+
+Playbook with sources from both GitHub and GitLab:
+
+[source,yaml]
+----
+site:
+  title: Hybrid Platform Docs
+  url: https://docs.example.com
+
+content:
+  sources:
+    # Public GitHub repos (no auth needed)
+    - url: https://github.com/example/public-api.git
+      branches: [main]
+
+    # Private GitHub repo
+    - url: https://github.com/example/internal-services.git
+      branches: [main]
+
+    # Private GitLab repo
+    - url: https://gitlab.com/example-corp/backend-services.git
+      branches: [main]
+
+    # Self-hosted GitLab
+    - url: https://gitlab.internal.example.com/platform/core.git
+      branches: [main]
+----
+
+Workflow with multi-host credentials:
+
+[source,yaml]
+----
+name: Build Cross-Platform Docs
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '0 */6 * * *'  # Rebuild every 6 hours
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Antora Site
+        uses: antora-supplemental/antora-build-action@v1
+        with:
+          playbook: antora-playbook.yml
+          git_credentials: |
+            https://x-access-token:${{ secrets.GITHUB_PAT }}@github.com
+            https://oauth2:${{ secrets.GITLAB_PAT }}@gitlab.com
+            https://oauth2:${{ secrets.INTERNAL_GITLAB_PAT }}@gitlab.internal.example.com
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+----
+
+== Example 3: Monorepo with external dependencies
+
+Playbook for a monorepo that also pulls docs from external sources:
+
+[source,yaml]
+----
+site:
+  title: Platform Documentation
+
+content:
+  sources:
+    # Local monorepo paths (uses current checkout)
+    - url: .
+      branches: HEAD
+      start_paths:
+        - packages/api/docs
+        - packages/cli/docs
+        - packages/sdk/docs
+
+    # External versioned dependency docs
+    - url: https://github.com/example/upstream-library.git
+      branches: ['v2.x', 'v3.x']
+      start_path: docs
+----
+
+Workflow:
+
+[source,yaml]
+----
+name: Build Monorepo Docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/*/docs/**'
+      - 'antora-playbook.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for version branches
+
+      - name: Build Antora Site
+        uses: antora-supplemental/antora-build-action@v1
+        with:
+          playbook: antora-playbook.yml
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Only need access to external repo
+----
+
+== Example 4: With extensions (search, diagrams)
+
+Playbook with extensions:
+
+[source,yaml]
+----
+site:
+  title: Technical Documentation
+
+content:
+  sources:
+    - url: https://github.com/example/docs.git
+
+antora:
+  extensions:
+    - '@antora/lunr-extension'  # Full-text search
+    - 'asciidoctor-kroki'       # Diagrams
+
+asciidoc:
+  extensions:
+    - 'asciidoctor-kroki'
+  attributes:
+    kroki-server-url: https://kroki.io
+----
+
+Workflow using those extensions:
+
+[source,yaml]
+----
+name: Build Docs with Extensions
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build Antora Site
+        uses: antora-supplemental/antora-build-action@v1
+        with:
+          playbook: antora-playbook.yml
+          git_credentials: |
+            https://x-access-token:${{ secrets.DOCS_PAT }}@github.com
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+----

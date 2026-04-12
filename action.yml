@@ -1,4 +1,4 @@
-﻿# Antora Build — composite action. Full docs: README.adoc in this repository.
+# Antora Build — composite action. Full manual: https://antora-supplemental.github.io/antora-build-action-docs/
 # Marketplace: name must be unique; description max 125 characters.
 name: 'Antora Supplemental Build'
 description: 'Build Antora docs in CI: private sources, dlx/local Antora, optional .nojekyll. Pair with upload-pages-artifact.'

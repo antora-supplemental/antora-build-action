@@ -1,0 +1,44 @@
+= Prerequisites
+:navtitle: Prerequisites
+
+You need a `package.json` in `working_directory` (the action installs dependencies unless `skip_install` is `true`).
+
+* **`antora_mode`** (`auto` by default): if `antora` or `@antora/cli` is listed in `package.json`, the action runs `pnpm exec antora` / `npx antora`. Otherwise it uses `pnpm dlx antora` / `npx antora` without adding Antora as a dependency.
+* **Recommended for reproducibility:** add Antora as a devDependency and commit a lockfile:
+
+[source,json]
+----
+{
+  "devDependencies": {
+    "antora": "^3.1"
+  }
+}
+----
+
+The `antora` package bundles both the CLI and site generator.
+Alternatively, install them separately:
+
+[source,json]
+----
+{
+  "devDependencies": {
+    "@antora/cli": "^3.1",
+    "@antora/site-generator": "^3.1"
+  }
+}
+----
+
+Commit a lockfile (`package-lock.json` or `pnpm-lock.yaml`) for reproducible builds.
+
+[WARNING]
+====
+**Global installation is not supported.**
+
+Installing Antora globally (`npm install -g`) leads to unreproducible builds because:
+
+* `latest` resolves to whatever version exists at build time.
+* No lockfile means builds can break silently when new versions ship.
+* It conflicts with dependency-managed CI.
+
+The https://docs.antora.org/antora/latest/install/install-antora/#locally-vs-globally[Antora documentation recommends local installation]: installing Antora locally makes it easier to manage the version of Antora and ensures that the version of Antora matches the version for which the playbook was made.
+====

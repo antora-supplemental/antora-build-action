@@ -1,0 +1,29 @@
+= Troubleshooting
+:navtitle: Troubleshooting
+
+== "Repository not found" or "Authentication failed"
+
+. Verify the token has access to the repository.
+. Check the token has not expired.
+. Ensure correct credential format (no trailing whitespace).
+. For GitLab, ensure you're using `oauth2` as the username.
+
+== "Could not find start path"
+
+. Check the `start_path` in your playbook matches the actual directory structure.
+. Ensure the branch specified exists in the repository.
+
+== Slow builds
+
+. Use `fetch: false` if you don't need to update content sources.
+. Consider caching `node_modules` (install is usually fast, but caching helps large monorepos).
+
+== Extension not found
+
+. Check the extension package name is correct.
+. Some extensions require both `antora.extensions` and `asciidoc.extensions` configuration.
+
+== Underscore-prefixed assets on GitHub Pages
+
+If CSS/JS under paths like `_` are not served, ensure `.nojekyll` exists at the site root.
+This action defaults `create_nojekyll` to `true` to create it for you.

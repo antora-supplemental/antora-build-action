@@ -1,0 +1,16 @@
+* xref:index.adoc[Overview]
+* xref:quick-start.adoc[Quick start]
+* xref:prerequisites.adoc[Prerequisites]
+* Reference
+** xref:reference.adoc[Inputs and outputs]
+* Authentication
+** xref:authentication.adoc[Authentication & credentials]
+* How-to
+** xref:howto-pages-official.adoc[GitHub Pages (official actions)]
+** xref:howto-pages-peaceiris.adoc[GitHub Pages (peaceiris)]
+** xref:multi-repo-examples.adoc[Multi-repository examples]
+* Explanation
+** xref:explanation-pages-actions.adoc[Why so many Pages actions?]
+* xref:security.adoc[Security]
+* xref:troubleshooting.adoc[Troubleshooting]
+* xref:contributing.adoc[Contributing & legal]

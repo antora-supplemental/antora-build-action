@@ -1,0 +1,7 @@
+{
+  "name": "@antora-supplemental/antora-build-action-manual",
+  "private": true,
+  "devDependencies": {
+    "antora": "^3.1.7"
+  }
+}

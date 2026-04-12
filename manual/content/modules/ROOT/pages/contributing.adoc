@@ -1,0 +1,21 @@
+= Contributing & legal
+:navtitle: Contributing & legal
+
+== Contributing
+
+Contributions are welcome. Please open an issue or pull request in https://github.com/antora-supplemental/antora-build-action[antora-supplemental/antora-build-action].
+
+== License
+
+MIT License. See the `LICENSE` file in the action repository if present; otherwise refer to the repository's declared license on GitHub.
+
+== Acknowledgments
+
+* https://antora.org[Antora] — The documentation site generator.
+* https://github.com/jsqu4re/antora_build[jsqu4re/antora_build] — Original Docker-based action that inspired this project.
+* The Antora community for documentation and support.
+
+== Disclaimer
+
+This is a community-maintained action, not officially affiliated with the Antora project.
+The official Antora project is maintained at https://gitlab.com/antora/antora[gitlab.com/antora/antora].

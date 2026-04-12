@@ -1,0 +1,31 @@
+= GitHub Pages (official actions)
+:navtitle: Pages (official)
+
+GitHub's supported pattern splits **build** and **deploy**:
+
+. **Build job** — Check out your docs repo, run this action, upload the site with `actions/upload-pages-artifact`.
+. **Deploy job** — Run `actions/deploy-pages` with OIDC (`id-token: write`).
+
+== Permissions
+
+Typical top-level permissions:
+
+[source,yaml]
+----
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+----
+
+Use **concurrency** so overlapping pushes do not fight over the same Pages deployment.
+
+== Match `output_dir` to the playbook
+
+Antora resolves `output.dir` relative to the playbook file. This action's `output_dir` input must match that directory so `site-path` points at the HTML root.
+
+This action can also write `.nojekyll` at that root when `create_nojekyll` is `true` (recommended for GitHub Pages).
+
+== Full example
+
+See xref:quick-start.adoc[Quick start] for a copy-paste workflow.

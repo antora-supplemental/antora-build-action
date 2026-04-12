@@ -1,0 +1,26 @@
+= GitHub Pages (peaceiris)
+:navtitle: Pages (peaceiris)
+
+Some teams prefer a **single job** that builds and pushes to the `gh-pages` branch (or another publish branch) using https://github.com/peaceiris/actions-gh-pages[peaceiris/actions-gh-pages].
+
+[source,yaml]
+----
+      - name: Build Antora Site
+        uses: antora-supplemental/antora-build-action@v1
+        with:
+          playbook: antora-playbook.yml
+          output_dir: build/site
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+----
+
+**Trade-offs:**
+
+* **Official `upload-pages-artifact` + `deploy-pages`** — GitHub's documented OIDC flow; two jobs; no branch full of built HTML.
+* **peaceiris** — One job; uses `GITHUB_TOKEN` or a PAT to push to `gh-pages`; familiar if you already use that pattern.
+
+This action **only builds**; either deploy pattern works as long as `publish_dir` matches the Antora output.

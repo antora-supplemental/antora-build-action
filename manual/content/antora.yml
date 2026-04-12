@@ -1,0 +1,5 @@
+name: manual
+title: Antora Build Action
+version: '1.0'
+nav:
+  - modules/ROOT/nav.adoc

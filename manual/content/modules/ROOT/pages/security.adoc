@@ -1,0 +1,42 @@
+= Security
+:navtitle: Security
+
+== Token permissions
+
+Use the minimum required permissions:
+
+[cols="1,2"]
+|===
+| Platform | Recommended scope
+
+| GitHub (classic PAT)
+| `repo` (or `public_repo` for public repos only)
+
+| GitHub (fine-grained)
+| "Contents: Read" on specific repositories
+
+| GitLab
+| `read_repository` scope only
+
+| Bitbucket
+| `repository:read` permission only
+|===
+
+== Token rotation
+
+* Rotate tokens regularly (every 90 days recommended).
+* Use GitHub's secret scanning to detect exposed tokens.
+* Prefer short-lived tokens where your platform supports them.
+
+== Workflow permissions
+
+Restrict workflow permissions in your repository settings. Example:
+
+[source,yaml]
+----
+# In workflow file
+permissions:
+  contents: read
+  pages: write
+  id-token: write  # For OIDC-based deployments
+----

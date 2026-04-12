@@ -1,0 +1,11 @@
+= Why so many Pages actions?
+:navtitle: Pages actions landscape
+
+GitHub Pages can be updated in more than one way:
+
+* **Official artifact + deploy actions** — Recommended in GitHub docs: build static assets, `upload-pages-artifact`, then `deploy-pages` with OIDC.
+* **Third-party push actions** — For example **peaceiris/actions-gh-pages**, which commits or pushes a branch (`gh-pages`) from your workflow.
+
+This **antora-build-action** repo intentionally **does not** choose a deploy mechanism: it runs Antora and exposes `site-path` so you can plug in whichever pattern your org standardizes on.
+
+If you publish *this* action to the **GitHub Marketplace**, GitHub requires that the **action repository** not contain workflow files — so the **HTML manual** for this action is built from the `manual/` directory here and published by a **sibling** repository. Maintainer notes: https://github.com/antora-supplemental/antora-build-action/blob/main/docs/publishing-marketplace.md[publishing-marketplace.md].

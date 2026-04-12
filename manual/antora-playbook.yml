@@ -1,0 +1,25 @@
+site:
+  title: Antora Build Action
+  url: https://antora-supplemental.github.io/antora-build-action-docs/
+  start_page: manual::index.adoc
+
+content:
+  sources:
+    # Playbook lives in manual/; component root is manual/content (repo root is parent).
+    - url: ..
+      branches: HEAD
+      start_path: manual/content
+
+output:
+  dir: ./build/site
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+
+asciidoc:
+  attributes:
+    experimental: ''
+    source-highlighter: highlight.js
+    icons: font

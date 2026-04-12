@@ -1,0 +1,34 @@
+= Antora Build Action
+:navtitle: Overview
+
+Build https://antora.org[Antora] documentation sites in GitHub Actions with support for private repositories, multi-repository aggregation, and custom extensions.
+
+[NOTE]
+====
+The https://github.com/marketplace[GitHub Marketplace] listing for this action is generated from `README.md` (Markdown only). This site is the **full** manual: inputs, credentials, examples, and troubleshooting.
+
+**Live URL:** https://antora-supplemental.github.io/antora-build-action-docs/
+====
+
+[TIP]
+====
+**Prefer every step spelled out in YAML?** +
+See https://github.com/amdphreak/antora-workflow-templates[antora-workflow-templates] for DIY workflow templates and a comparison to this action's inputs.
+====
+
+== Features
+
+* **Private repository access** — Authenticate with GitHub, GitLab, and Bitbucket using personal access tokens.
+* **Multi-repository support** — Aggregate content from multiple repos across hosts.
+* **Custom extensions** — Install Antora extensions (for example Lunr search, Kroki diagrams).
+* **Configurable** — Playbook path, `working_directory`, `output_dir`, Node.js, log level, fetch behavior.
+* **Antora install modes** — `antora_mode`: local dependency (`pnpm exec` / `npx`) or `pnpm dlx` / `npx` when Antora is not in `package.json` (see xref:reference.adoc[Inputs and outputs]).
+* **GitHub Pages helper** — Optional `create_nojekyll` (default `true`) writes `.nojekyll` at the site output root for underscore-prefixed assets.
+* **Composite action** — Fast execution without a Docker build.
+
+== Where to go next
+
+* xref:quick-start.adoc[Quick start] — Official GitHub Pages pattern (`upload-pages-artifact` + `deploy-pages`).
+* xref:prerequisites.adoc[Prerequisites] — `package.json`, lockfiles, and `antora_mode`.
+* xref:authentication.adoc[Authentication & credentials] — Private `content.sources`.
+* xref:multi-repo-examples.adoc[Multi-repository examples] — Playbooks and workflows for common setups.

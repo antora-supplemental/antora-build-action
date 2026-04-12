@@ -1,0 +1,82 @@
+= Inputs and outputs
+:navtitle: Inputs and outputs
+
+== Inputs
+
+[cols="1,1,3,1"]
+|===
+| Input | Required | Description | Default
+
+| `playbook`
+| No
+| Path to the Antora playbook file
+| `antora-playbook.yml`
+
+| `git_credentials`
+| No
+| Git credentials for private repos (see xref:authentication.adoc[Authentication & credentials])
+| --
+
+| `github_token`
+| No
+| GitHub token for private GitHub repos only
+| --
+
+| `antora_read_token`
+| No
+| Legacy: PAT for GitHub-only private `content.sources` (sets `url.insteadOf` for github.com)
+| --
+
+| `antora_mode`
+| No
+| `auto` (default), `local`, or `dlx` — see xref:prerequisites.adoc[Prerequisites]
+| `auto`
+
+| `create_nojekyll`
+| No
+| Create `.nojekyll` at the resolved output directory (GitHub Pages)
+| `true`
+
+| `skip_install`
+| No
+| Skip `pnpm install` / `npm ci` in the action when your workflow already installed deps
+| `false`
+
+| `node_version`
+| No
+| Node.js version
+| `20`
+
+| `output_dir`
+| No
+| Output directory for generated site
+| `build/site`
+
+| `working_directory`
+| No
+| Directory to run build in (for monorepos)
+| `.`
+
+| `fetch`
+| No
+| Fetch updates from content sources
+| `true`
+
+| `log_level`
+| No
+| Log level: fatal, error, warn, info, debug
+| `warn`
+|===
+
+== Outputs
+
+[cols="1,3"]
+|===
+| Output | Description
+
+| `site-path`
+| Path to the generated site directory (use with `actions/upload-pages-artifact`)
+
+| `site_dir`
+| Same path as `site-path` (alias)
+|===
