@@ -76,6 +76,22 @@ inputs:
     required: false
     default: 'false'
 
+  skip_pnpm_setup:
+    description: >
+      Skip pnpm/action-setup. Use when an earlier workflow step already installed pnpm (for example you run
+      pnpm/action-setup before this action). Ignored when the project uses npm (no pnpm-lock.yaml). When
+      you set this, pnpm must already be on PATH for pnpm projects.
+    required: false
+    default: 'false'
+
+  skip_node_setup:
+    description: >
+      Skip actions/setup-node inside this action. Use when an earlier step already configured Node (and
+      optional dependency cache). You should match the same major Node version as node_version. Antora 3.x
+      needs Node 18+.
+    required: false
+    default: 'false'
+
 outputs:
   site-path:
     description: 'Path to the built site root (for actions/upload-pages-artifact path).'
@@ -96,11 +112,6 @@ runs:
           exit 1
         fi
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ inputs.node_version }}
-
     - name: Detect package manager
       id: pm
       shell: bash
@@ -112,12 +123,19 @@ runs:
           echo "manager=npm" >> "$GITHUB_OUTPUT"
         fi
 
+    # pnpm before setup-node so actions/setup-node can use cache: pnpm (see actions/setup-node docs).
     - name: Setup pnpm
-      if: steps.pm.outputs.manager == 'pnpm'
+      if: steps.pm.outputs.manager == 'pnpm' && inputs.skip_pnpm_setup != 'true'
       uses: pnpm/action-setup@v4
       with:
-        version: 10.33.0
         package_json_file: ${{ inputs.working_directory }}/package.json
+
+    - name: Setup Node.js
+      if: inputs.skip_node_setup != 'true'
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node_version }}
+        cache: ${{ steps.pm.outputs.manager == 'pnpm' && 'pnpm' || 'npm' }}
 
     - name: Configure Git credentials
       shell: bash

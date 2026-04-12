@@ -42,6 +42,16 @@
 | Skip `pnpm install` / `npm ci` in the action when your workflow already installed deps
 | `false`
 
+| `skip_pnpm_setup`
+| No
+| Skip `pnpm/action-setup`. Use when an earlier step already installed pnpm (see xref:prerequisites.adoc[Prerequisites]). Ignored for npm-only projects.
+| `false`
+
+| `skip_node_setup`
+| No
+| Skip `actions/setup-node`. Use when an earlier step already configured Node (match `node_version` to that step).
+| `false`
+
 | `node_version`
 | No
 | Node.js version

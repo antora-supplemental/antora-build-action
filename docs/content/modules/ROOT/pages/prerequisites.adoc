@@ -3,6 +3,8 @@
 
 You need a `package.json` in `working_directory` (the action installs dependencies unless `skip_install` is `true`).
 
+* **pnpm version:** when the project has `pnpm-lock.yaml`, this action runs `pnpm/action-setup` using the `packageManager` field in `package.json` (Corepack-style pin). Add that field (for example `pnpm@10.33.0`) so CI and local dev agree; omitting it still works—the setup action falls back to its default behavior.
+* **Chaining with your own setup:** if you already run `pnpm/action-setup` and `actions/setup-node` (with `cache: pnpm` or `npm`) plus `pnpm install` / `npm ci` before this action, pass `skip_pnpm_setup: true`, `skip_node_setup: true`, and `skip_install: true` so the action only runs Antora. If you only pre-install deps, use `skip_install: true` alone.
 * **`antora_mode`** (`auto` by default): if `antora` or `@antora/cli` is listed in `package.json`, the action runs `pnpm exec antora` / `npx antora`. Otherwise it uses `pnpm dlx antora` / `npx antora` without adding Antora as a dependency.
 * **Recommended for reproducibility:** add Antora as a devDependency and commit a lockfile:
 
