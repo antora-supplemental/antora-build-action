@@ -5,10 +5,10 @@ site:
 
 content:
   sources:
-    # Playbook lives in manual/; component root is manual/content (repo root is parent).
+    # Playbook in docs/; Antora component is docs/content (repo root is parent for git).
     - url: ..
       branches: HEAD
-      start_path: manual/content
+      start_path: docs/content
 
 output:
   dir: ./build/site

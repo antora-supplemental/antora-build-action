@@ -6,7 +6,7 @@
 
 **https://antora-supplemental.github.io/antora-build-action/**
 
-The manual covers prerequisites, every input/output, authentication for private `content.sources`, multi-repo examples, official vs peaceiris Pages patterns, security, and troubleshooting. Source lives under `manual/` in this repository.
+The manual covers prerequisites, every input/output, authentication for private `content.sources`, multi-repo examples, official vs peaceiris Pages patterns, security, and troubleshooting. Source lives under `docs/` in this repository (AsciiDoc playbook + `content/`).
 
 > GitHub Marketplace ingests **this `README.md` only** (Markdown). Keep this file short; put depth in the manual.
 

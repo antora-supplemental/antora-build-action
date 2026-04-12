@@ -14,3 +14,5 @@
 * xref:security.adoc[Security]
 * xref:troubleshooting.adoc[Troubleshooting]
 * xref:contributing.adoc[Contributing & legal]
+* Maintainers
+** xref:publishing-marketplace.adoc[Publishing to Marketplace]

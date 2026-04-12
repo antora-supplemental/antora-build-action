@@ -1,8 +1,9 @@
-# Publishing this action to GitHub Marketplace
+= Publishing to GitHub Marketplace
+:navtitle: Marketplace (maintainers)
 
 Instructions for maintainers of this repository.
 
-## Workflows in the action repository (what is and is not restricted)
+== Workflows in the action repository (what is and is not restricted)
 
 Older GitHub documentation sometimes quoted a line suggesting that **no** workflow files may exist in a Marketplace action repository. **That is not a useful summary of current practice (2026).** There is **no blanket prohibition** on having `.github/workflows/` in an action repo.
 
@@ -14,29 +15,25 @@ What is true:
 
 Do **not** confuse “workflows for the action’s own CI” with “bundling a workflow that targets someone else’s repository.” The latter is not how users consume actions.
 
-Official reference: [Publishing actions in GitHub Marketplace](https://docs.github.com/en/actions/creating-actions/publishing-actions-in-github-marketplace) (read the current page; policies evolve).
+Official reference: https://docs.github.com/en/actions/creating-actions/publishing-actions-in-github-marketplace[Publishing actions in GitHub Marketplace] (read the current page; policies evolve).
 
----
+== Documentation site (GitHub Pages, in this repository)
 
-## Manual site (GitHub Pages, in this repository)
-
-The Antora **manual** lives under `manual/`. It is built and deployed by **`.github/workflows/publish-the-manual.yml`** (`upload-pages-artifact` + `deploy-pages`).
+The Antora **documentation site** is authored under `docs/` (playbook, `package.json`, and `content/`). It is built and deployed by **`.github/workflows/publish-docs.yml`** (`upload-pages-artifact` + `deploy-pages`).
 
 **Public URL (project site):** https://antora-supplemental.github.io/antora-build-action/
 
-Triggers: pushes to `main` that touch `manual/**` or the workflow file, **workflow_dispatch**, and a daily **schedule**.
+Triggers: pushes to `main` that touch `docs/**` or the workflow file, **workflow_dispatch**, and a daily **schedule**.
 
-### First-time setup (Pages)
+=== First-time setup (Pages)
 
 1. Repo **Settings → Pages** → **Build and deployment** → Source: **GitHub Actions** (not “Deploy from a branch”).
-2. Run **Actions → Publish the manual → Run workflow** once, or push a change under `manual/`.
+2. Run **Actions → Publish docs site → Run workflow** once, or push a change under `docs/`.
 3. Confirm the site loads at the URL above.
 
----
+== Marketplace publishing checklist
 
-## Marketplace publishing checklist
-
-1. **Accept terms.** The organization (or you) must accept the [GitHub Marketplace Developer Agreement](https://github.com/marketplace/developer-terms).
+1. **Accept terms.** The organization (or you) must accept the https://github.com/marketplace/developer-terms[GitHub Marketplace Developer Agreement].
 
 2. **Repository contents (typical expectations):**
    * **`action.yml` or `action.yaml`** at the repo root (or a documented subdirectory if publishing from there).
@@ -51,6 +48,6 @@ Triggers: pushes to `main` that touch `manual/**` or the workflow file, **workfl
    - Optionally pick **Another category**.
    - **Publish release**.
 
-4. The action will appear on [GitHub Actions Marketplace](https://github.com/marketplace?type=actions); users reference it as `antora-supplemental/antora-build-action@v1`. New releases (e.g. `v1.0.1`) update the listing.
+4. The action will appear on https://github.com/marketplace?type=actions[GitHub Actions Marketplace]; users reference it as `antora-supplemental/antora-build-action@v1`. New releases (e.g. `v1.0.1`) update the listing.
 
-5. **Listing copy.** Keep **README.md** concise; deep content lives in `manual/` and the **live manual** URL—link it prominently from **README.md**.
+5. **Listing copy.** Keep **README.md** concise; deep content lives in `docs/` (this site) and the **live** URL—link it prominently from **README.md**.
