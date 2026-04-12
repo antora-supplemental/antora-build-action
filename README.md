@@ -1,40 +1,31 @@
-# Antora Build
+﻿# Antora Build
 
-**For use in the GitHub Actions workflow editor.** Go to the repository where you want to deploy Antora, open **Actions**, click **Set up a workflow yourself** →, then search for the action's name to add it to your workflow.
+**Composite GitHub Action** — run [Antora](https://antora.org) in CI and produce a static documentation site (HTML) you can publish anywhere. Typical use is with **GitHub Actions** plus [**GitHub Pages**](https://pages.github.com/) (`actions/upload-pages-artifact` and `actions/deploy-pages`). This action **builds only**; it does not deploy by itself.
 
-Composite GitHub Action that builds an [Antora](https://antora.org) documentation site. Use it in your workflow after `checkout`; pair with `actions/upload-pages-artifact` and `actions/deploy-pages` for GitHub Pages.
+## What you get
 
-## Usage
+- **Antora runs** with your playbook (`antora-playbook.yml` or another path), respecting `working_directory` for monorepos.
+- **Private Git content** — optional credentials for `content.sources` (GitHub, GitLab, Bitbucket patterns via `git_credentials` or `github_token`).
+- **Flexible Antora install** — `antora_mode`: use a project-local `antora` dependency, or **`pnpm dlx` / `npx`** when Antora is not in `package.json` (see full docs).
+- **GitHub Pages–friendly output** — optional **`create_nojekyll`** (default **on**) adds an empty `.nojekyll` at the site output root so paths like `_css` / `_js` are served reliably.
+- **Outputs** `site-path` / `site_dir` for the next step (e.g. upload Pages artifact).
+
+## Full documentation
+
+**[README.adoc](https://github.com/antora-supplemental/antora-build-action/blob/main/README.adoc)** — inputs, prerequisites, authentication, multi-repo examples, security, troubleshooting, and **workflow editor** tips. GitHub Marketplace listing text is taken from this `README.md`; the AsciiDoc file is the complete reference.
+
+## Minimal usage
 
 ```yaml
 - uses: actions/checkout@v4
-
 - uses: antora-supplemental/antora-build-action@v1
   id: antora
   with:
-    playbook: antora-playbook.yml   # optional, default above
-    # antora-read-token: ${{ secrets.ANTORA_READ_TOKEN }}  # only if playbook has private content sources
-
+    playbook: antora-playbook.yml
+    output_dir: build/site
 - uses: actions/upload-pages-artifact@v3
   with:
     path: ${{ steps.antora.outputs.site-path }}
 ```
 
-Then add a deploy job that uses `actions/deploy-pages@4`. For private repos in `content.sources`, pass a PAT as `antora-read-token`. See [antora-deployment.adoc](https://github.com/dev-centr/devcentr/blob/main/docs/modules/publishing/pages/antora-deployment.adoc) (Private repos: GITHUB_TOKEN vs PAT).
-
-## Inputs
-
-| Input | Default | Description |
-|-------|---------|-------------|
-| `playbook` | `antora-playbook.yml` | Path to the Antora playbook. |
-| `node-version` | `20` | Node.js version. |
-| `pnpm-version` | `9` | pnpm version. |
-| `antora-read-token` | (none) | Optional PAT so Antora can clone other private repos. Omit if all sources are public or same repo. |
-
-## Outputs
-
-| Output | Description |
-|--------|-------------|
-| `site-path` | Path to the built site (`build/site`). Use as `path` for `upload-pages-artifact`. |
-
-Maintainers: see [docs/publishing-marketplace.md](docs/publishing-marketplace.md) for how to publish or update the action on GitHub Marketplace.
+Then use a **deploy** job with `actions/deploy-pages@v4` (see **README.adoc** for permissions and a full example).

@@ -1,53 +1,224 @@
-# Antora build – composite action for GitHub Actions Marketplace.
-# Use in your workflow after checkout. Outputs site path for deploy-pages.
-# Private content sources: pass antora-read-token (PAT) so Antora can clone other private repos.
+﻿# Antora Build — composite action. Full docs: README.adoc in this repository.
 name: 'Antora Build'
-description: 'Build an Antora documentation site (Node, pnpm, antora). Use after checkout; optional PAT for private content sources.'
+description: >
+  Build an Antora documentation site in CI. Supports private Git content sources,
+  local or pnpm-dlx Antora, optional .nojekyll for GitHub Pages artifacts, and
+  monorepo working directories. Pair with actions/upload-pages-artifact and
+  actions/deploy-pages (this action does not deploy).
+author: 'AMDphreak'
+
 branding:
-  icon: 'book'
+  icon: 'book-open'
   color: 'blue'
+
 inputs:
   playbook:
-    description: 'Path to antora-playbook.yml'
+    description: 'Path to the Antora playbook (YAML), relative to working_directory.'
     required: false
     default: 'antora-playbook.yml'
-  node-version:
-    description: 'Node.js version'
+
+  git_credentials:
+    description: >
+      Git credentials in .git-credentials format (multi-line) for private content.sources.
+      Takes precedence over github_token and antora_read_token.
+    required: false
+
+  github_token:
+    description: >
+      GitHub token for private GitHub repos only. Equivalent to one line in git_credentials.
+    required: false
+
+  antora_read_token:
+    description: >
+      Optional PAT for GitHub-only private content.sources (legacy). Configures git insteadOf for github.com.
+    required: false
+
+  node_version:
+    description: 'Node.js version (Antora 3.x needs 18+).'
     required: false
     default: '20'
-  pnpm-version:
-    description: 'pnpm version'
+
+  output_dir:
+    description: >
+      Directory where the site is written; must match playbook output.dir (Antora resolves paths from the playbook file location).
     required: false
-    default: '9'
-  antora-read-token:
-    description: 'Optional PAT for cloning private content sources (content.sources). Leave empty if all sources are public or same repo.'
+    default: 'build/site'
+
+  fetch:
+    description: 'Whether to pass --fetch to Antora.'
     required: false
+    default: 'true'
+
+  log_level:
+    description: 'Antora log level: fatal, error, warn, info, debug, all.'
+    required: false
+    default: 'warn'
+
+  working_directory:
+    description: 'Directory containing package.json and the playbook (use . for repo root).'
+    required: false
+    default: '.'
+
+  antora_mode:
+    description: >
+      auto: use local antora if listed in package.json, else pnpm dlx / npx.
+      local: require antora in package.json and run pnpm exec / npx antora.
+      dlx: run pnpm dlx antora or npx antora without requiring antora as a dependency.
+    required: false
+    default: 'auto'
+
+  create_nojekyll:
+    description: >
+      Create an empty .nojekyll file at the site output root (helps GitHub Pages serve _css, _js, etc.).
+    required: false
+    default: 'true'
+
+  skip_install:
+    description: >
+      Skip pnpm install / npm ci inside this action (use when the workflow already installed dependencies).
+    required: false
+    default: 'false'
+
 outputs:
   site-path:
-    description: 'Path to the built site (default build/site). Use with actions/upload-pages-artifact path.'
-    value: ${{ steps.build.outputs.site-path }}
+    description: 'Path to the built site root (for actions/upload-pages-artifact path).'
+    value: ${{ steps.finalize.outputs.site-path }}
+  site_dir:
+    description: 'Same as site-path (alias).'
+    value: ${{ steps.finalize.outputs.site-path }}
+
 runs:
   using: 'composite'
   steps:
-    - name: Setup Node
+    - name: Validate working directory
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: |
+        if [ ! -f "package.json" ]; then
+          echo "::error::package.json not found in ${{ inputs.working_directory }}"
+          exit 1
+        fi
+
+    - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ inputs.node-version }}
+        node-version: ${{ inputs.node_version }}
 
-    - name: Install pnpm
+    - name: Detect package manager
+      id: pm
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      run: |
+        if [ -f "pnpm-lock.yaml" ]; then
+          echo "manager=pnpm" >> "$GITHUB_OUTPUT"
+        else
+          echo "manager=npm" >> "$GITHUB_OUTPUT"
+        fi
+
+    - name: Setup pnpm
+      if: steps.pm.outputs.manager == 'pnpm'
       uses: pnpm/action-setup@v4
       with:
-        version: ${{ inputs.pnpm-version }}
+        package_json_file: ${{ inputs.working_directory }}/package.json
 
-    - name: Configure git for private content sources
-      if: inputs.antora-read-token != ''
+    - name: Configure Git credentials
       shell: bash
+      env:
+        GIT_CREDENTIALS_INPUT: ${{ inputs.git_credentials }}
+        GITHUB_TOKEN_INPUT: ${{ inputs.github_token }}
+        ANTORA_READ: ${{ inputs.antora_read_token }}
       run: |
-        git config --global url."https://${{ inputs.antora-read-token }}@github.com/".insteadOf "https://github.com/"
+        CREDS_FILE="$HOME/.git-credentials"
+        if [ -n "$GIT_CREDENTIALS_INPUT" ]; then
+          echo "$GIT_CREDENTIALS_INPUT" > "$CREDS_FILE"
+        elif [ -n "$GITHUB_TOKEN_INPUT" ]; then
+          echo "https://x-access-token:${GITHUB_TOKEN_INPUT}@github.com" > "$CREDS_FILE"
+        fi
+        if [ -f "$CREDS_FILE" ]; then
+          chmod 600 "$CREDS_FILE"
+          git config --global credential.helper "store --file=$CREDS_FILE"
+        fi
+        if [ -n "$ANTORA_READ" ]; then
+          git config --global url."https://${ANTORA_READ}@github.com/".insteadOf "https://github.com/"
+        fi
+
+    - name: Install dependencies
+      if: inputs.skip_install != 'true'
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      env:
+        PKG: ${{ steps.pm.outputs.manager }}
+      run: |
+        if [ "$PKG" = "pnpm" ]; then
+          pnpm install --frozen-lockfile
+        else
+          npm ci
+        fi
+
+    - name: Resolve Antora mode
+      id: mode
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      env:
+        MODE_IN: ${{ inputs.antora_mode }}
+      run: |
+        HAS_ANTORA=false
+        if grep -qE '"antora"|"@antora/cli"' package.json; then
+          HAS_ANTORA=true
+        fi
+        MODE="$MODE_IN"
+        if [ "$MODE" = "auto" ]; then
+          if [ "$HAS_ANTORA" = "true" ]; then MODE=local; else MODE=dlx; fi
+        fi
+        if [ "$MODE" = "local" ] && [ "$HAS_ANTORA" != "true" ]; then
+          echo "::error::antora_mode is local but antora is not in package.json devDependencies/dependencies"
+          exit 1
+        fi
+        echo "run_mode=$MODE" >> "$GITHUB_OUTPUT"
 
     - name: Build Antora site
-      id: build
       shell: bash
+      working-directory: ${{ inputs.working_directory }}
+      env:
+        PLAYBOOK: ${{ inputs.playbook }}
+        FETCH: ${{ inputs.fetch }}
+        LOG_LEVEL: ${{ inputs.log_level }}
+        PKG: ${{ steps.pm.outputs.manager }}
+        RUN_MODE: ${{ steps.mode.outputs.run_mode }}
+        GIT_CREDENTIALS: ${{ inputs.git_credentials }}
       run: |
-        pnpm dlx antora "${{ inputs.playbook }}"
-        echo "site-path=build/site" >> "$GITHUB_OUTPUT"
+        ARGS=""
+        if [ "$FETCH" = "true" ]; then ARGS="$ARGS --fetch"; fi
+        ARGS="$ARGS --log-level $LOG_LEVEL"
+        if [ "$PKG" = "pnpm" ]; then
+          if [ "$RUN_MODE" = "dlx" ]; then
+            echo "Running: pnpm dlx antora $ARGS $PLAYBOOK"
+            pnpm dlx antora $ARGS "$PLAYBOOK"
+          else
+            echo "Running: pnpm exec antora $ARGS $PLAYBOOK"
+            pnpm exec antora $ARGS "$PLAYBOOK"
+          fi
+        else
+          echo "Running: npx antora $ARGS $PLAYBOOK"
+          npx antora $ARGS "$PLAYBOOK"
+        fi
+
+    - name: Finalize output path and .nojekyll
+      id: finalize
+      shell: bash
+      env:
+        WD: ${{ inputs.working_directory }}
+        OUT: ${{ inputs.output_dir }}
+        NJ: ${{ inputs.create_nojekyll }}
+      run: |
+        if [ "$WD" = "." ]; then
+          SITE_PATH="$OUT"
+        else
+          SITE_PATH="$WD/$OUT"
+        fi
+        if [ "$NJ" = "true" ]; then
+          touch "$SITE_PATH/.nojekyll"
+          echo "Created $SITE_PATH/.nojekyll"
+        fi
+        echo "site-path=$SITE_PATH" >> "$GITHUB_OUTPUT"
+        echo "Antora site root: $SITE_PATH"

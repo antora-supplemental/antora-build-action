@@ -17,3 +17,5 @@ Instructions for maintainers of this repository.
 4. The action will appear on [GitHub Actions Marketplace](https://github.com/marketplace?type=actions) and users can reference it as `antora-supplemental/antora-build-action@v1`.
 
 To update the listing, create a new release (e.g. `v1.0.1`); the marketplace page will show the latest release.
+
+5. **Listing copy.** Marketplace ingests **README.md** only (Markdown). Keep **README.adoc** as the full manual; do not duplicate long examples in **README.md**.
