@@ -5,8 +5,8 @@ description: 'Build Antora docs in CI: private sources, dlx/local Antora, option
 author: 'AMDphreak'
 
 branding:
-  icon: 'book-open'
-  color: 'blue'
+  icon: 'layers'
+  color: 'green'
 
 inputs:
   playbook:
