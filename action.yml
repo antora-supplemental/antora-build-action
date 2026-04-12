@@ -1,10 +1,7 @@
 ﻿# Antora Build — composite action. Full docs: README.adoc in this repository.
-name: 'Antora Build'
-description: >
-  Build an Antora documentation site in CI. Supports private Git content sources,
-  local or pnpm-dlx Antora, optional .nojekyll for GitHub Pages artifacts, and
-  monorepo working directories. Pair with actions/upload-pages-artifact and
-  actions/deploy-pages (this action does not deploy).
+# Marketplace: name must be unique; description max 125 characters.
+name: 'Antora Supplemental Build'
+description: 'Build Antora docs in CI: private sources, dlx/local Antora, optional .nojekyll. Pair with upload-pages-artifact.'
 author: 'AMDphreak'
 
 branding:
