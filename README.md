@@ -22,7 +22,7 @@ The manual covers prerequisites, every input/output, authentication for private 
 
 ```yaml
 - uses: actions/checkout@v4
-- uses: antora-supplemental/antora-build-action@v1
+- uses: antora-supplemental/antora-build-action@v2
   id: antora
   with:
     playbook: antora-playbook.yml
@@ -33,3 +33,15 @@ The manual covers prerequisites, every input/output, authentication for private 
 ```
 
 Then use a **deploy** job with `actions/deploy-pages@v4`. Permissions, a two-job example, and alternatives are in the **manual** (link above).
+
+## v2 migration (from v1)
+
+Input names are **positive** defaults (opt out with `false`):
+
+| v1 (removed) | v2 |
+|----|----|
+| `skip_install: true` | `install_dependencies: false` |
+| `skip_pnpm_setup: true` | `setup_pnpm: false` |
+| `skip_node_setup: true` | `setup_node: false` |
+
+Use `antora-supplemental/antora-build-action@v2` in workflows. **`v1` remains available** for existing YAML that still references `skip_*`.

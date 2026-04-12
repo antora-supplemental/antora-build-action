@@ -48,6 +48,6 @@ Triggers: pushes to `main` that touch `docs/**` or the workflow file, **workflow
    - Optionally pick **Another category**.
    - **Publish release**.
 
-4. The action will appear on https://github.com/marketplace?type=actions[GitHub Actions Marketplace]; users reference it as `antora-supplemental/antora-build-action@v1`. New releases (e.g. `v1.0.1`) update the listing.
+4. The action will appear on https://github.com/marketplace?type=actions[GitHub Actions Marketplace]; users reference it as `antora-supplemental/antora-build-action@v2`. New patch releases (e.g. `v2.0.1`) update the listing.
 
 5. **Listing copy.** Keep **README.md** concise; deep content lives in `docs/` (this site) and the **live** URL—link it prominently from **README.md**.

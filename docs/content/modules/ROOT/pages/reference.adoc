@@ -37,20 +37,20 @@
 | Create `.nojekyll` at the resolved output directory (GitHub Pages)
 | `true`
 
-| `skip_install`
+| `install_dependencies`
 | No
-| Skip `pnpm install` / `npm ci` in the action when your workflow already installed deps
-| `false`
+| Run `pnpm install --frozen-lockfile` or `npm ci` in the action. Set to `false` if your workflow already installed deps.
+| `true`
 
-| `skip_pnpm_setup`
+| `setup_pnpm`
 | No
-| Skip `pnpm/action-setup`. Use when an earlier step already installed pnpm (see xref:prerequisites.adoc[Prerequisites]). Ignored for npm-only projects.
-| `false`
+| Run `pnpm/action-setup` for pnpm projects. Set to `false` if pnpm is already on `PATH` (see xref:prerequisites.adoc[Prerequisites]). Ignored for npm-only projects.
+| `true`
 
-| `skip_node_setup`
+| `setup_node`
 | No
-| Skip `actions/setup-node`. Use when an earlier step already configured Node (match `node_version` to that step).
-| `false`
+| Run `actions/setup-node` with dependency cache. Set to `false` if Node is already configured (match `node_version` to that step).
+| `true`
 
 | `node_version`
 | No

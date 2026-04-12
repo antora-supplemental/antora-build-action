@@ -1,7 +1,7 @@
 = Workflow examples (GitHub Actions)
 :navtitle: Workflow examples
 
-These snippets are adapted from the legacy `antora-github-action` examples. They use **`antora-supplemental/antora-build-action@v1`** (Antora Site Builder). Copy a file into `.github/workflows/` in your own repository and adjust secrets, paths, and deploy steps.
+These snippets are adapted from the legacy `antora-github-action` examples. They use **`antora-supplemental/antora-build-action@v2`** (Antora Site Builder). Copy a file into `.github/workflows/` in your own repository and adjust secrets, paths, and deploy steps.
 
 [TIP]
 ====

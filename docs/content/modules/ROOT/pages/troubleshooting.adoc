@@ -15,13 +15,13 @@
 
 == "Multiple versions of pnpm specified" (pnpm/action-setup)
 
-`pnpm/action-setup@v4` errors if both its `version` input and `package.json` `packageManager` pin different releases. This action passes only `package_json_file` (no hard-coded `version`) so the version comes from your repo. Align any *other* `pnpm/action-setup` steps the same way, or set `skip_pnpm_setup: true` after you install pnpm yourself.
+`pnpm/action-setup@v4` errors if both its `version` input and `package.json` `packageManager` pin different releases. This action passes only `package_json_file` (no hard-coded `version`) so the version comes from your repo. Align any *other* `pnpm/action-setup` steps the same way, or set `setup_pnpm: false` after you install pnpm yourself.
 
 == Slow builds
 
 . Use `fetch: false` if you don't need to update content sources.
 . Consider caching `node_modules` (install is usually fast, but caching helps large monorepos).
-. The action enables `actions/setup-node` dependency cache (`pnpm` or `npm`) when it runs the setup step; if you use `skip_node_setup: true`, reuse your own cache configuration.
+. The action enables `actions/setup-node` dependency cache (`pnpm` or `npm`) when it runs the setup step; if you use `setup_node: false`, reuse your own cache configuration.
 
 == Extension not found
 

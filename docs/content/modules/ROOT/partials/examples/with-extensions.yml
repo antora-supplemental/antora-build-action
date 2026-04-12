@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build Antora site with extensions
-        uses: antora-supplemental/antora-build-action@v1
+        uses: antora-supplemental/antora-build-action@v2
         with:
           playbook: antora-playbook.yml
           # Optional: if your content repos are private

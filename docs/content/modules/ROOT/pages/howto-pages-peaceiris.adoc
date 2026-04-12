@@ -6,7 +6,7 @@ Some teams prefer a **single job** that builds and pushes to the `gh-pages` bran
 [source,yaml]
 ----
       - name: Build Antora Site
-        uses: antora-supplemental/antora-build-action@v1
+        uses: antora-supplemental/antora-build-action@v2
         with:
           playbook: antora-playbook.yml
           output_dir: build/site
