@@ -20,7 +20,7 @@ Official reference: [Publishing actions in GitHub Marketplace](https://docs.gith
 
 ## Manual site (GitHub Pages, in this repository)
 
-The Antora **manual** lives under `manual/`. It is built and deployed by **`.github/workflows/publish-manual.yml`** (`upload-pages-artifact` + `deploy-pages`).
+The Antora **manual** lives under `manual/`. It is built and deployed by **`.github/workflows/publish-the-manual.yml`** (`upload-pages-artifact` + `deploy-pages`).
 
 **Public URL (project site):** https://antora-supplemental.github.io/antora-build-action/
 
@@ -29,7 +29,7 @@ Triggers: pushes to `main` that touch `manual/**` or the workflow file, **workfl
 ### First-time setup (Pages)
 
 1. Repo **Settings → Pages** → **Build and deployment** → Source: **GitHub Actions** (not “Deploy from a branch”).
-2. Run **Actions → Publish manual → Run workflow** once, or push a change under `manual/`.
+2. Run **Actions → Publish the manual → Run workflow** once, or push a change under `manual/`.
 3. Confirm the site loads at the URL above.
 
 ---

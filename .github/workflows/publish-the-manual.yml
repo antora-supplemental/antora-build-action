@@ -1,11 +1,11 @@
-name: Publish manual
+name: Publish the manual
 
 on:
   push:
     branches: [main]
     paths:
       - 'manual/**'
-      - '.github/workflows/publish-manual.yml'
+      - '.github/workflows/publish-the-manual.yml'
   workflow_dispatch:
   schedule:
     - cron: '0 6 * * *'
@@ -42,7 +42,7 @@ jobs:
         working-directory: manual
         run: pnpm install --frozen-lockfile
 
-      - name: Build manual
+      - name: Build the manual site
         working-directory: manual
         run: pnpm exec antora antora-playbook.yml
 
