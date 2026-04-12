@@ -1,4 +1,4 @@
-= Antora Build Action
+= Antora Site Builder
 :icons: font
 
 The **full manual** (multi-page, Antora-generated) is published here:

@@ -1,5 +1,5 @@
 site:
-  title: Antora Build Action
+  title: Antora Site Builder
   url: https://antora-supplemental.github.io/antora-build-action/
   start_page: manual::index.adoc
 

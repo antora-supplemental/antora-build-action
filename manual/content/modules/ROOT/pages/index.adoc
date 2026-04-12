@@ -1,4 +1,4 @@
-= Antora Build Action
+= Antora Site Builder
 :navtitle: Overview
 
 Build https://antora.org[Antora] documentation sites in GitHub Actions with support for private repositories, multi-repository aggregation, and custom extensions.

@@ -1,5 +1,5 @@
 name: manual
-title: Antora Build Action
+title: Antora Site Builder
 version: '1.0'
 nav:
   - modules/ROOT/nav.adoc

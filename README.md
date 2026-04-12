@@ -1,4 +1,4 @@
-# Antora Build
+# Antora Site Builder
 
 **Composite GitHub Action** — run [Antora](https://antora.org) in CI and produce a static documentation site (HTML) you can publish anywhere. Typical use is **GitHub Actions** plus [**GitHub Pages**](https://pages.github.com/) (`actions/upload-pages-artifact` and `actions/deploy-pages`). This action **builds only**; it does not deploy by itself.
 

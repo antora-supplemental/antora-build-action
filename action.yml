@@ -1,12 +1,12 @@
-# Antora Build — composite action. Full manual: https://antora-supplemental.github.io/antora-build-action/
+# Antora Site Builder — composite action. Full manual: https://antora-supplemental.github.io/antora-build-action/
 # Marketplace: name must be unique; description max 125 characters.
-name: 'Antora Supplemental Build'
-description: 'Build Antora docs in CI: private sources, dlx/local Antora, optional .nojekyll. Pair with upload-pages-artifact.'
+name: 'Antora Site Builder'
+description: 'Build Antora sites in GitHub Actions: private repos, multi-repo playbooks, local or dlx Antora, optional .nojekyll for Pages.'
 author: 'AMDphreak'
 
 branding:
-  icon: 'layers'
-  color: 'green'
+  icon: 'book-open'
+  color: 'blue'
 
 inputs:
   playbook:
