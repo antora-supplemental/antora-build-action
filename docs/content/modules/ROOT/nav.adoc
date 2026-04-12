@@ -9,6 +9,7 @@
 ** xref:howto-pages-official.adoc[GitHub Pages (official actions)]
 ** xref:howto-pages-peaceiris.adoc[GitHub Pages (peaceiris)]
 ** xref:multi-repo-examples.adoc[Multi-repository examples]
+** xref:workflow-examples.adoc[Workflow examples (YAML)]
 * Explanation
 ** xref:explanation-pages-actions.adoc[Why so many Pages actions?]
 * xref:security.adoc[Security]

@@ -32,3 +32,4 @@ See https://github.com/amdphreak/antora-workflow-templates[antora-workflow-templ
 * xref:prerequisites.adoc[Prerequisites] — `package.json`, lockfiles, and `antora_mode`.
 * xref:authentication.adoc[Authentication & credentials] — Private `content.sources`.
 * xref:multi-repo-examples.adoc[Multi-repository examples] — Playbooks and workflows for common setups.
+* xref:workflow-examples.adoc[Workflow examples] — Ready-to-copy GitHub Actions YAML (from legacy `antora-github-action` examples).

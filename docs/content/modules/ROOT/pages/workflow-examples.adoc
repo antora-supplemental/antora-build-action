@@ -1,0 +1,63 @@
+= Workflow examples (GitHub Actions)
+:navtitle: Workflow examples
+
+These snippets are adapted from the legacy `antora-github-action` examples. They use **`antora-supplemental/antora-build-action@v1`** (Antora Site Builder). Copy a file into `.github/workflows/` in your own repository and adjust secrets, paths, and deploy steps.
+
+[TIP]
+====
+Files also live under `docs/content/modules/ROOT/partials/examples/` in this repo for editing with the YAML workflow schema (see root `.vscode/settings.json`).
+====
+
+== Basic public repository
+
+Single public repo; optional PR artifact and `peaceiris` deploy on `main`.
+
+[source,yaml]
+----
+include::partial$examples/basic-public-repo.yml[]
+----
+
+== With Antora extensions
+
+Playbook must list extensions (Lunr, Kroki, etc.); see comments in the partial.
+
+[source,yaml]
+----
+include::partial$examples/with-extensions.yml[]
+----
+
+== Versioned documentation
+
+Branch-based triggers with path filters. For tag-only builds, add a second workflow with `on.push.tags`.
+
+[source,yaml]
+----
+include::partial$examples/versioned-docs.yml[]
+----
+
+== Private multi-repository (GitHub)
+
+`git_credentials` for a PAT that can read all `content.sources` repos; GitHub Pages via `upload-pages-artifact` + `deploy-pages`.
+
+[source,yaml]
+----
+include::partial$examples/private-multi-repo.yml[]
+----
+
+== Cross-platform (GitHub + GitLab)
+
+Multiple credential lines for different hosts.
+
+[source,yaml]
+----
+include::partial$examples/cross-platform-github-gitlab.yml[]
+----
+
+== Netlify
+
+Build with the action, then deploy the output directory with Netlify’s action.
+
+[source,yaml]
+----
+include::partial$examples/netlify-deploy.yml[]
+----

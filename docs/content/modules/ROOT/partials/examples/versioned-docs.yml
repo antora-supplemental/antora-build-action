@@ -1,0 +1,59 @@
+# =============================================================================
+# Example: Versioned Documentation
+# =============================================================================
+# Building documentation for multiple versions of a project using Git branches.
+# Antora automatically creates version selectors in the generated site.
+#
+# Corresponding playbook:
+# ```yaml
+# content:
+#   sources:
+#     - url: https://github.com/your-org/your-project.git
+#       branches: [main, 'v1.*', 'v2.*', 'v3.*']
+#       tags: ['v*']  # Optional: include tagged releases
+#       start_path: docs
+#
+# site:
+#   title: Your Project Documentation
+#   start_page: your-component::index.adoc
+# ```
+#
+# To also run when you push version tags, add a separate workflow with only:
+#   on: { push: { tags: ['v*'] } }
+# (GitHub Actions does not allow two `push:` keys in one file.)
+# =============================================================================
+
+name: Build Versioned Documentation
+
+on:
+  push:
+    branches: [main, 'v*']
+    paths:
+      - 'docs/**'
+      - 'antora-playbook.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build versioned Antora site
+        uses: antora-supplemental/antora-build-action@v1
+        with:
+          playbook: antora-playbook.yml
+          fetch: 'true'
+          log_level: 'info'
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+          keep_files: true
