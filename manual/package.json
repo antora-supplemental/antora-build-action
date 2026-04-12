@@ -1,6 +1,7 @@
 {
   "name": "@antora-supplemental/antora-build-action-manual",
   "private": true,
+  "packageManager": "pnpm@10.33.0",
   "devDependencies": {
     "antora": "^3.1.7"
   }
