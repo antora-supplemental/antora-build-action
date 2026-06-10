@@ -15,9 +15,8 @@ output:
 
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    url: https://github.com/antora-supplemental/antora-dark-mode/releases/download/v1.2.0/ui-bundle.zip
     snapshot: true
-  supplemental_files: ./node_modules/antora-dark-theme/supplemental-ui
 
 asciidoc:
   attributes:
