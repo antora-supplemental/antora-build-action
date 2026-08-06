@@ -1,5 +1,32 @@
+ifndef::env-github[:icons: font]
+:toc: preamble
+:toclevels: 2
+:sectanchors:
+endif::[]
+
+ifndef::env-github[]
+image:https://img.shields.io/github/contributors/antora-supplemental/antora-build-action.svg?style=for-the-badge[Contributors,link=https://github.com/antora-supplemental/antora-build-action/graphs/contributors]
+image:https://img.shields.io/github/forks/antora-supplemental/antora-build-action.svg?style=for-the-badge[Forks,link=https://github.com/antora-supplemental/antora-build-action/network/members]
+image:https://img.shields.io/github/stars/antora-supplemental/antora-build-action.svg?style=for-the-badge[Stars,link=https://github.com/antora-supplemental/antora-build-action/stargazers]
+image:https://img.shields.io/github/issues/antora-supplemental/antora-build-action.svg?style=for-the-badge[Issues,link=https://github.com/antora-supplemental/antora-build-action/issues]
+endif::[]
+
+ifdef::env-github[]
+image:https://img.shields.io/github/contributors/antora-supplemental/antora-build-action.svg?style=for-the-badge[Contributors]
+image:https://img.shields.io/github/forks/antora-supplemental/antora-build-action.svg?style=for-the-badge[Forks]
+image:https://img.shields.io/github/stars/antora-supplemental/antora-build-action.svg?style=for-the-badge[Stars]
+image:https://img.shields.io/github/issues/antora-supplemental/antora-build-action.svg?style=for-the-badge[Issues]
+endif::[]
+
 = Antora Site Builder
-:icons: font
+
+GitHub Action to build Antora documentation sites with support for private repos, multi-repo aggregation, and extensions.
+
+link:https://antora-supplemental.github.io/antora-build-action/[Explore the docs] ·
+link:https://github.com/antora-supplemental/antora-build-action/issues[Report Bug] ·
+link:https://github.com/antora-supplemental/antora-build-action/issues[Request Feature]
+
+== About The Project
 
 The **full manual** (multi-page, Antora-generated) is published here:
 
@@ -8,3 +35,12 @@ https://antora-supplemental.github.io/antora-build-action/
 AsciiDoc sources and the Antora playbook live in the `docs/` directory of this repository.
 
 The https://github.com/marketplace[GitHub Marketplace] listing is generated from `README.md` only.
+
+Pair with `upload-pages-artifact` and `deploy-pages` for GitHub Pages deployment.
+
+== Contact
+
+Antora Supplemental — support@antora-supplemental.org
+
+* Project: https://github.com/antora-supplemental/antora-build-action
+* Site: https://antora-supplemental.org
