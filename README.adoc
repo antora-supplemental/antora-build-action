@@ -4,19 +4,11 @@ ifndef::env-github[:icons: font]
 :sectanchors:
 endif::[]
 
-ifndef::env-github[]
+[[readme-top]]
 image:https://img.shields.io/github/contributors/antora-supplemental/antora-build-action.svg?style=for-the-badge[Contributors,link=https://github.com/antora-supplemental/antora-build-action/graphs/contributors]
 image:https://img.shields.io/github/forks/antora-supplemental/antora-build-action.svg?style=for-the-badge[Forks,link=https://github.com/antora-supplemental/antora-build-action/network/members]
 image:https://img.shields.io/github/stars/antora-supplemental/antora-build-action.svg?style=for-the-badge[Stars,link=https://github.com/antora-supplemental/antora-build-action/stargazers]
 image:https://img.shields.io/github/issues/antora-supplemental/antora-build-action.svg?style=for-the-badge[Issues,link=https://github.com/antora-supplemental/antora-build-action/issues]
-endif::[]
-
-ifdef::env-github[]
-image:https://img.shields.io/github/contributors/antora-supplemental/antora-build-action.svg?style=for-the-badge[Contributors]
-image:https://img.shields.io/github/forks/antora-supplemental/antora-build-action.svg?style=for-the-badge[Forks]
-image:https://img.shields.io/github/stars/antora-supplemental/antora-build-action.svg?style=for-the-badge[Stars]
-image:https://img.shields.io/github/issues/antora-supplemental/antora-build-action.svg?style=for-the-badge[Issues]
-endif::[]
 
 = Antora Site Builder
 
@@ -38,9 +30,13 @@ The https://github.com/marketplace[GitHub Marketplace] listing is generated from
 
 Pair with `upload-pages-artifact` and `deploy-pages` for GitHub Pages deployment.
 
+link:#readme-top[back to top]
+
 == Contact
 
 Antora Supplemental — support@antora-supplemental.org
 
 * Project: https://github.com/antora-supplemental/antora-build-action
 * Site: https://antora-supplemental.org
+
+link:#readme-top[back to top]
