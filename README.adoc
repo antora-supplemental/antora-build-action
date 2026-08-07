@@ -4,7 +4,77 @@ ifndef::env-github[:icons: font]
 :sectanchors:
 endif::[]
 
-[[readme-top]]
+ifdef::env-github[]
+++++
+<a id="readme-top"></a>
+<div align="center">
+<a href="https://github.com/antora-supplemental/antora-build-action/graphs/contributors"><img src="https://img.shields.io/github/contributors/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Contributors"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/network/members"><img src="https://img.shields.io/github/forks/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Forks"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/stargazers"><img src="https://img.shields.io/github/stars/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Stars"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/issues"><img src="https://img.shields.io/github/issues/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Issues"></a>
+<br />
+<h3 align="center">Antora Site Builder</h3>
+<p align="center">
+GitHub Action to build Antora documentation sites with support for private repos, multi-repo aggregation, and extensions.<br />
+<a href="https://antora-supplemental.github.io/antora-build-action/"><strong>Explore the docs ·</strong></a>
+<br /><br />
+<a href="https://github.com/antora-supplemental/antora-build-action/issues">Report Bug</a>
+&middot;
+<a href="https://github.com/antora-supplemental/antora-build-action/issues">Request Feature</a>
+</p>
+</div>
+++++
+endif::[]
+
+ifndef::env-github[]
+
+ifdef::env-github[]
+++++
+<a id="readme-top"></a>
+<div align="center">
+<a href="https://github.com/antora-supplemental/antora-build-action/graphs/contributors"><img src="https://img.shields.io/github/contributors/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Contributors"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/network/members"><img src="https://img.shields.io/github/forks/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Forks"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/stargazers"><img src="https://img.shields.io/github/stars/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Stars"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/issues"><img src="https://img.shields.io/github/issues/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Issues"></a>
+<br />
+<h3 align="center">Antora Site Builder</h3>
+<p align="center">
+GitHub Action to build Antora documentation sites with support for private repos, multi-repo aggregation, and extensions.<br />
+<a href="https://antora-supplemental.github.io/antora-build-action/"><strong>Explore the docs ·</strong></a>
+<br /><br />
+<a href="https://github.com/antora-supplemental/antora-build-action/issues">Report Bug</a>
+&middot;
+<a href="https://github.com/antora-supplemental/antora-build-action/issues">Request Feature</a>
+</p>
+</div>
+++++
+endif::[]
+
+ifndef::env-github[]
+
+ifdef::env-github[]
+++++
+<a id="readme-top"></a>
+<div align="center">
+<a href="https://github.com/antora-supplemental/antora-build-action/graphs/contributors"><img src="https://img.shields.io/github/contributors/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Contributors"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/network/members"><img src="https://img.shields.io/github/forks/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Forks"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/stargazers"><img src="https://img.shields.io/github/stars/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Stars"></a>
+<a href="https://github.com/antora-supplemental/antora-build-action/issues"><img src="https://img.shields.io/github/issues/antora-supplemental/antora-build-action.svg?style=for-the-badge" alt="Issues"></a>
+<br />
+<h3 align="center">Antora Site Builder</h3>
+<p align="center">
+GitHub Action to build Antora documentation sites with support for private repos, multi-repo aggregation, and extensions.<br />
+<a href="https://antora-supplemental.github.io/antora-build-action/"><strong>Explore the docs ·</strong></a>
+<br /><br />
+<a href="https://github.com/antora-supplemental/antora-build-action/issues">Report Bug</a>
+&middot;
+<a href="https://github.com/antora-supplemental/antora-build-action/issues">Request Feature</a>
+</p>
+</div>
+++++
+endif::[]
+
+ifndef::env-github[]
 image:https://img.shields.io/github/contributors/antora-supplemental/antora-build-action.svg?style=for-the-badge[Contributors,link=https://github.com/antora-supplemental/antora-build-action/graphs/contributors]
 image:https://img.shields.io/github/forks/antora-supplemental/antora-build-action.svg?style=for-the-badge[Forks,link=https://github.com/antora-supplemental/antora-build-action/network/members]
 image:https://img.shields.io/github/stars/antora-supplemental/antora-build-action.svg?style=for-the-badge[Stars,link=https://github.com/antora-supplemental/antora-build-action/stargazers]
@@ -17,6 +87,7 @@ GitHub Action to build Antora documentation sites with support for private repos
 link:https://antora-supplemental.github.io/antora-build-action/[Explore the docs] ·
 link:https://github.com/antora-supplemental/antora-build-action/issues[Report Bug] ·
 link:https://github.com/antora-supplemental/antora-build-action/issues[Request Feature]
+endif::[]
 
 == About The Project
 
@@ -30,8 +101,9 @@ The https://github.com/marketplace[GitHub Marketplace] listing is generated from
 
 Pair with `upload-pages-artifact` and `deploy-pages` for GitHub Pages deployment.
 
-link:#readme-top[back to top]
-
+++++
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+++++
 == Contact
 
 Antora Supplemental — support@antora-supplemental.org
@@ -39,4 +111,6 @@ Antora Supplemental — support@antora-supplemental.org
 * Project: https://github.com/antora-supplemental/antora-build-action
 * Site: https://antora-supplemental.org
 
-link:#readme-top[back to top]
+++++
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+++++
