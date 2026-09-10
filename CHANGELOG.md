@@ -1,5 +1,11 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Antora `site.robots` emits `/robots.txt` with an absolute Sitemap URL for the production host.
+
 ## v2.0.0 — 2026-04-12
 
 ### Breaking change: positive toolchain inputs

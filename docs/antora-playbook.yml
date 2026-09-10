@@ -1,7 +1,11 @@
 site:
   title: Antora Site Builder
-  url: https://antora-supplemental.github.io/antora-build-action/
+  url: https://antora-supplemental.github.io/antora-build-action
   start_page: manual::index.adoc
+  robots: |
+    User-agent: *
+    Allow: /
+    Sitemap: https://antora-supplemental.github.io/antora-build-action/sitemap.xml
 
 content:
   sources:
@@ -17,6 +21,10 @@ ui:
   bundle:
     url: https://github.com/antora-supplemental/antora-dark-mode/releases/download/v1.2.0/ui-bundle.zip
     snapshot: true
+
+antora:
+  extensions:
+    - require: '@antora/lunr-extension'
 
 asciidoc:
   attributes:
