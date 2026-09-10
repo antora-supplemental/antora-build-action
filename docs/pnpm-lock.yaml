@@ -11,9 +11,6 @@ importers:
       antora:
         specifier: ^3.1.7
         version: 3.1.14
-      antora-dark-theme:
-        specifier: ^0.1.4
-        version: 0.1.4
 
 packages:
 
@@ -108,9 +105,6 @@ packages:
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
     engines: {node: '>=6.5'}
-
-  antora-dark-theme@0.1.4:
-    resolution: {integrity: sha512-/D5dVONMFWyL44z8GZ29+wET3dnkfUfiSLduTqESopY2SjX2kTaCt4GmYGmAJIuG0VCSvq572pjY+eyF+aPJ+A==}
 
   antora@3.1.14:
     resolution: {integrity: sha512-z8HshJsT6pUfdDOUJ15RGtpOM9LmL6JXU5JBshoR/9/xd+1qLmKPkOnUv+HrijAk93r1imxZOdkmIqhLcv8B8A==}
@@ -815,8 +809,6 @@ snapshots:
   abort-controller@3.0.0:
     dependencies:
       event-target-shim: 5.0.1
-
-  antora-dark-theme@0.1.4: {}
 
   antora@3.1.14:
     dependencies:
