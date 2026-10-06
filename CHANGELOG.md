@@ -6,6 +6,10 @@
 
 - Antora `site.robots` emits `/robots.txt` with an absolute Sitemap URL for the production host.
 
+### Changed
+
+- Docs site lockfile refresh so Antora resolves `@asciidoctor/core` 2.2.9; its Opal runtime (0.3.4) uses `fast-glob` instead of the deprecated `glob@7` and `inflight`.
+
 ## v2.0.0 — 2026-04-12
 
 ### Breaking change: positive toolchain inputs
