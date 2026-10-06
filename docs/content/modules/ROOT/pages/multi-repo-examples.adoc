@@ -47,10 +47,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Build Antora Site
-        uses: antora-supplemental/antora-build-action@v2
+        uses: antora-supplemental/antora-build-action@v3
         with:
           playbook: antora-playbook.yml
           # PAT with 'repo' scope that has access to all content repos
@@ -109,10 +109,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Build Antora Site
-        uses: antora-supplemental/antora-build-action@v2
+        uses: antora-supplemental/antora-build-action@v3
         with:
           playbook: antora-playbook.yml
           git_credentials: |
@@ -169,12 +169,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0  # Full history for version branches
 
       - name: Build Antora Site
-        uses: antora-supplemental/antora-build-action@v2
+        uses: antora-supplemental/antora-build-action@v3
         with:
           playbook: antora-playbook.yml
           github_token: ${{ secrets.GITHUB_TOKEN }}  # Only need access to external repo
@@ -219,10 +219,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Build Antora Site
-        uses: antora-supplemental/antora-build-action@v2
+        uses: antora-supplemental/antora-build-action@v3
         with:
           playbook: antora-playbook.yml
           git_credentials: |

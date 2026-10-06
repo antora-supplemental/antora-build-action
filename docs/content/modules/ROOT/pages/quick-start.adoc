@@ -20,14 +20,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Antora
         id: antora
-        uses: antora-supplemental/antora-build-action@v2
+        uses: antora-supplemental/antora-build-action@v3
         with:
           playbook: antora-playbook.yml
           output_dir: build/site
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: ${{ steps.antora.outputs.site-path }}
   deploy:
@@ -38,7 +38,7 @@ jobs:
       url: ${{ steps.deploy.outputs.page_url }}
     steps:
       - id: deploy
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 ----
 
 For more detail on permissions and alternatives, see xref:howto-pages-official.adoc[GitHub Pages (official actions)] and xref:howto-pages-peaceiris.adoc[GitHub Pages (peaceiris)].

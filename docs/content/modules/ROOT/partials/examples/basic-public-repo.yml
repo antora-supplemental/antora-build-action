@@ -19,17 +19,17 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build Antora site
-        uses: antora-supplemental/antora-build-action@v2
+        uses: antora-supplemental/antora-build-action@v3
         with:
           playbook: antora-playbook.yml
 
       # For pull requests, just upload as artifact for review
       - name: Upload site artifact
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: documentation-preview
           path: build/site

@@ -30,17 +30,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Build Antora site
-        uses: antora-supplemental/antora-build-action@v2
+        uses: antora-supplemental/antora-build-action@v3
         with:
           playbook: antora-playbook.yml
           git_credentials: |
             https://x-access-token:${{ secrets.DOCS_PAT }}@github.com
 
       - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v3
+        uses: nwtgck/actions-netlify@v4
         with:
           publish-dir: './build/site'
           production-branch: main

@@ -15,7 +15,7 @@
 
 == "Multiple versions of pnpm specified" (pnpm/action-setup)
 
-`pnpm/action-setup@v4` errors if both its `version` input and `package.json` `packageManager` pin different releases. This action passes only `package_json_file` (no hard-coded `version`) so the version comes from your repo. Align any *other* `pnpm/action-setup` steps the same way, or set `setup_pnpm: false` after you install pnpm yourself.
+`pnpm/action-setup@v6` errors if both its `version` input and `package.json` `packageManager` pin different releases. This action passes only `package_json_file` (no hard-coded `version`) so the version comes from your repo. Align any *other* `pnpm/action-setup` steps the same way, or set `setup_pnpm: false` after you install pnpm yourself.
 
 == Slow builds
 

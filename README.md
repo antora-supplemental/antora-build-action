@@ -21,18 +21,18 @@ The manual covers prerequisites, every input/output, authentication for private 
 ## Minimal usage
 
 ```yaml
-- uses: actions/checkout@v4
-- uses: antora-supplemental/antora-build-action@v2
+- uses: actions/checkout@v7
+- uses: antora-supplemental/antora-build-action@v3
   id: antora
   with:
     playbook: antora-playbook.yml
     output_dir: build/site
-- uses: actions/upload-pages-artifact@v3
+- uses: actions/upload-pages-artifact@v5
   with:
     path: ${{ steps.antora.outputs.site-path }}
 ```
 
-Then use a **deploy** job with `actions/deploy-pages@v4`. Permissions, a two-job example, and alternatives are in the **manual** (link above).
+Then use a **deploy** job with `actions/deploy-pages@v5`. Permissions, a two-job example, and alternatives are in the **manual** (link above).
 
 ## v2 migration (from v1)
 
@@ -44,4 +44,4 @@ Input names are **positive** defaults (opt out with `false`):
 | `skip_pnpm_setup: true` | `setup_pnpm: false` |
 | `skip_node_setup: true` | `setup_node: false` |
 
-Use `antora-supplemental/antora-build-action@v2` in workflows. **`v1` remains available** for existing YAML that still references `skip_*`.
+Use `antora-supplemental/antora-build-action@v3` in workflows. v3 has the same inputs as v2; it only moves the bundled `pnpm/action-setup` and `actions/setup-node` steps to their Node 24 majors (v6 / v7), which removes the "Node.js 20 is deprecated" warning. **`v2` and `v1` remain available** (v1 for existing YAML that still references `skip_*`).
